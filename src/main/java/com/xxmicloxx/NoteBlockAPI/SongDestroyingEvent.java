@@ -6,12 +6,19 @@ import org.bukkit.event.HandlerList;
 
 public class SongDestroyingEvent extends Event implements Cancellable {
 
+    public enum StopCause {
+        END,
+        MANUALLY_DESTROYED
+    }
+
     private static final HandlerList handlers = new HandlerList();
     private SongPlayer song;
     private boolean cancelled = false;
+    private StopCause cause = StopCause.MANUALLY_DESTROYED;
 
-    public SongDestroyingEvent(SongPlayer song) {
+    public SongDestroyingEvent(SongPlayer song, StopCause sc) {
         this.song = song;
+        this.cause = sc;
     }
 
     public static HandlerList getHandlerList() {
@@ -25,6 +32,8 @@ public class SongDestroyingEvent extends Event implements Cancellable {
     public HandlerList getHandlers() {
         return handlers;
     }
+
+    public StopCause getStoppedCause(){ return cause; }
 
     @Override
     public boolean isCancelled() {

@@ -93,7 +93,7 @@ public abstract class SongPlayer {
                                 SongEndEvent event = new SongEndEvent(SongPlayer.this);
                                 Bukkit.getPluginManager().callEvent(event);
                                 if (autoDestroy) {
-                                    destroy();
+                                    destroy(SongDestroyingEvent.StopCause.END);
                                     return;
                                 }
                             }
@@ -156,9 +156,9 @@ public abstract class SongPlayer {
 
     public abstract void playTick(Player p, int tick);
 
-    public void destroy() {
+    public void destroy(SongDestroyingEvent.StopCause sc) {
         synchronized (this) {
-            SongDestroyingEvent event = new SongDestroyingEvent(this);
+            SongDestroyingEvent event = new SongDestroyingEvent(this, sc);
             Bukkit.getPluginManager().callEvent(event);
             //Bukkit.getScheduler().cancelTask(threadId);
             if (event.isCancelled()) {
@@ -177,7 +177,7 @@ public abstract class SongPlayer {
     public void setPlaying(boolean playing) {
         this.playing = playing;
         if (!playing) {
-            SongStoppedEvent event = new SongStoppedEvent(this);
+            SongStartedEvent event = new SongStartedEvent(this);
             Bukkit.getPluginManager().callEvent(event);
         }
     }
@@ -203,7 +203,7 @@ public abstract class SongPlayer {
             if (playerList.isEmpty() && autoDestroy) {
                 SongEndEvent event = new SongEndEvent(this);
                 Bukkit.getPluginManager().callEvent(event);
-                destroy();
+                destroy(SongDestroyingEvent.StopCause.END);
             }
         }
     }

@@ -6,21 +6,24 @@
 
     <groupId>com.xxmicloxx</groupId>
     <artifactId>NoteBlockAPI</artifactId>
-    <version>1.8.7</version>
+    <version>1.8.8</version>
+
     <repositories>
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+
     <dependencies>
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.9.4-R0.1-SNAPSHOT</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.11-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
     <distributionManagement>
       <repository>
          <id>sinndev-repo</id>
@@ -33,6 +36,7 @@
          <url>http://repo.sinndev.com/content/repositories/snapshots/</url>
       </snapshotRepository>
     </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
